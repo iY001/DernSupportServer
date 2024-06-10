@@ -44,7 +44,7 @@ const postProblem = async (req, res) => {
         filename: fileName,
         data: data.toString('base64'),
         type: photo.mimetype,
-        size : photo.size
+        size : photo.size ?? "Unknown"
       });
     }
 

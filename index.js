@@ -9,7 +9,9 @@ const checkAuthorized = require("./middleware/checkAuthorized");
 
 app.use(compression());
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.get('/', (req, res) => {
   res.send('Dern Support Server!');

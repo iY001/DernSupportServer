@@ -8,7 +8,7 @@ const getAllTickets = async (req, res) => {
         replies: true,
         images: {
           select: {
-            fileName: true,
+            filename: true,
             data : false
           }
         },

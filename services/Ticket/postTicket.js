@@ -28,6 +28,7 @@ const postTicket = async (req, res) => {
         filename: fileName, // Adjust filename handling based on your requirements
         data: data.toString('base64'), // Convert buffer to base64 string
         type: photo.mimetype,
+        size : photo.size
       });
     }
 

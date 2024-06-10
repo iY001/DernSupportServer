@@ -1,11 +1,17 @@
 const { PrismaClient } = require('@prisma/client');
+
 const getAllTickets = async (req, res) => {
   try {
     const prisma = new PrismaClient();
     const tickets = await prisma.ticket.findMany({
       include: {
         replies: true,
-        images: true,
+        images: {
+          select: {
+            fileName: true,
+            data : false
+          }
+        },
         user: true
       }
     });
@@ -15,4 +21,4 @@ const getAllTickets = async (req, res) => {
   }
 }
 
-module.exports = getAllTickets
+module.exports = getAllTickets;

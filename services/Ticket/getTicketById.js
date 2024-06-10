@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+
 const getTicketById = async (req, res) => {
   try {
     const prisma = new PrismaClient();
@@ -8,7 +9,12 @@ const getTicketById = async (req, res) => {
       },
       include: {
         replies: true,
-        images: true
+        images: {
+          select: {
+            filename: true // Correct usage to select only the fileName
+          }
+        },
+        user: true
       }
     });
     res.status(200).json(ticket);
@@ -17,4 +23,4 @@ const getTicketById = async (req, res) => {
   }
 }
 
-module.exports = getTicketById
+module.exports = getTicketById;

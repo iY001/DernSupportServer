@@ -49,7 +49,11 @@ const postTicket = async (req, res) => {
         }
       },
       include: {
-        images: true // Include images in the response
+        images: {
+          select: {
+            filename: true // Correct usage to select only the fileName
+          }
+        }, // Include images in the response
       }
     });
 

@@ -1,3 +1,5 @@
+const { getImage } = require('../services/Images/getImage')
+
 const router = require('express').Router()
 
 

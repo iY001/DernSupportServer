@@ -6,7 +6,7 @@ const getImage = async (req, res) => {
 
 
   try {
-    const image = await prisma.images.findUnique({
+    const image = await prisma.images.findFirst({
       where: {
         filename: fileName,
       },

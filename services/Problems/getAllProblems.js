@@ -6,7 +6,11 @@ const getAllProblems = async (req, res) => {
     const problems = await prisma.problems.findMany({
       include: {
         user: true,
-        images: true
+        images: {
+          select: {
+            filename: true // Correct usage to select only the fileName
+          }
+        },
       }
     });
     res.status(200).json({

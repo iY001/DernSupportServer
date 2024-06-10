@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  password  String
+  role      String?
+  replies   Reply[]
+  tickets   Ticket[]
+  problems  Problems[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Ticket {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String?
+  email       String?
+  subject     String?
+  description String?
+  type       String?
+  isSolved    Boolean  @default(false)
+  userId      String   @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id])
+  replies     Reply[]
+  images      Images[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// model AuthorInfo {
+//   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+//   name      String
+//   email     String
+//   ticketId  String   @db.ObjectId
+//   ticket    Ticket   @relation(fields: [ticketId], references: [id])
+// }
+
+model Images {
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  filename         String?
+  originalFilename String? // Optional: Original filename if needed
+  url              String? // Optional: URL or path to access the image file
+  type             String
+  size             Int
+  problemId        String?   @db.ObjectId
+  problem          Problems? @relation(fields: [problemId], references: [id])
+  ticketId         String?   @db.ObjectId
+  ticket           Ticket?   @relation(fields: [ticketId], references: [id])
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model Reply {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  body      String
+  ticketId  String   @db.ObjectId
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Problems {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  subject     String
+  type        String
+  description String?
+  isSolved    Boolean  @default(false)
+  solution    String?
+  images      Images[]
+  userId      String   @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

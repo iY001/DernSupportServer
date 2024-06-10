@@ -7,7 +7,6 @@
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "index.js" }
   ],
-  "scripts" :{
-    "build": "prisma generate && npm run build"
-  }
+    "buildCommand": "prisma generate && npm run build"
+  
 }

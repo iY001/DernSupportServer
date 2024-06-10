@@ -27,7 +27,7 @@ const postProblem = async (req, res) => {
       return res.status(403).send("No Permission");
     }
 
-    let { photos, fileName } = req.body;
+    let { photos, fileName , size } = req.body;
 
     // Ensure photos is an array
     if (!Array.isArray(photos)) {
@@ -60,7 +60,7 @@ const postProblem = async (req, res) => {
             filename: upload.filename,
             data: upload.data,
             type: upload.type,
-            size : upload.size
+            size : upload.size ? upload.size : size
           }))
         }
       }

@@ -12,7 +12,7 @@ const postTicket = async (req, res) => {
     }
 
     const { name, email, subject, description , type} = req.body;
-    let { photos, fileName } = req.body;
+    let { photos, fileName , size } = req.body;
 
     if (!Array.isArray(photos)) {
       photos = [];
@@ -46,7 +46,7 @@ const postTicket = async (req, res) => {
             filename: upload.filename,
             data: upload.data,
             type: upload.type,
-            size : upload.size
+            size : upload.size ? upload.size : size
           }))
         }
       },

@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "build": "npx prisma generate && npm run build",
+    "build": "npx prisma generate && npm run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -42,9 +42,8 @@ const postProblem = async (req, res) => {
       imageUploads.push({
         ...photo,
         filename: fileName,
-        url: data.toString('base64'),
+        data: data.toString('base64'),
         type: photo.mimetype,
-        size: photo.size
       });
     }
 
@@ -58,9 +57,8 @@ const postProblem = async (req, res) => {
         images: {
           create: imageUploads.map(upload => ({
             filename: upload.filename,
-            url: upload.url,
+            data: upload.data,
             type: upload.type,
-            size: upload.size
           }))
         }
       }

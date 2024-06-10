@@ -26,9 +26,8 @@ const postTicket = async (req, res) => {
       imageUploads.push({
         ...photo,
         filename: fileName, // Adjust filename handling based on your requirements
-        url: data.toString('base64'), // Convert buffer to base64 string
+        data: data.toString('base64'), // Convert buffer to base64 string
         type: photo.mimetype,
-        size: photo.size
       });
     }
 
@@ -44,9 +43,8 @@ const postTicket = async (req, res) => {
         images: {
           create: imageUploads.map(upload => ({
             filename: upload.filename,
-            url: upload.url,
+            data: upload.data,
             type: upload.type,
-            size: upload.size
           }))
         }
       },

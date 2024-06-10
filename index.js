@@ -22,5 +22,6 @@ app.use('/user', require('./routes/User'));
 app.use('/tickets', checkAuthorized, require('./routes/Tickets'));
 app.use('/replies' , checkAuthorized, require('./routes/Replies'));
 app.use('/problems' , require('./routes/Problems'));
+app.use('/images' , require('./routes/Images'));
 
 app.listen(port, () => console.log(`Server running on http://localhost:${port}`));

@@ -47,10 +47,8 @@ model Ticket {
 model Images {
   id               String    @id @default(auto()) @map("_id") @db.ObjectId
   filename         String?
-  originalFilename String? // Optional: Original filename if needed
-  url              String? // Optional: URL or path to access the image file
+  data              Bytes? // Optional: URL or path to access the image file
   type             String
-  size             Int
   problemId        String?   @db.ObjectId
   problem          Problems? @relation(fields: [problemId], references: [id])
   ticketId         String?   @db.ObjectId

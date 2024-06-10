@@ -60,6 +60,7 @@ const postProblem = async (req, res) => {
             filename: upload.filename,
             data: upload.data,
             type: upload.type,
+            size : upload.size
           }))
         }
       }

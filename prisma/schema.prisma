@@ -49,6 +49,7 @@ model Images {
   filename   String?
   data       Bytes?    // Optional: URL or path to access the image file
   type       String
+  size       Int?
   problemId  String?   @db.ObjectId
   problem    Problems? @relation(fields: [problemId], references: [id])
   ticketId   String?   @db.ObjectId

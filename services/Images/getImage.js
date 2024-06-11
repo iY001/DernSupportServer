@@ -14,7 +14,8 @@ const getImage = async (req, res) => {
     }
 
     res.setHeader('Content-Type', image.type);
-    res.send(image.data.toString('base64'));
+    res.setHeader('Content-Length', image.size);
+    res.send(image.data);
 
   } catch (error) {
     console.log(error);

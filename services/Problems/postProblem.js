@@ -55,7 +55,12 @@ const postProblem = async (req, res) => {
         description: req.body.description,
         userId: decodedToken.id,
         images: {
-          create: imageUploads
+          create: imageUploads.map(upload => ({
+            filename: upload.filename,
+            data: upload.data,
+            type: upload.type,
+            size: upload.size
+          }))
         }
       }
     });

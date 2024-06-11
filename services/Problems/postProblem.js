@@ -40,7 +40,6 @@ const postProblem = async (req, res) => {
     for (const photo of photos) {
       const data = Buffer.from(photo.buffer);
       imageUploads.push({
-        ...photo,
         filename: filename,
         data: data.toString('base64'),
         type: photo.mimetype,
@@ -56,12 +55,7 @@ const postProblem = async (req, res) => {
         description: req.body.description,
         userId: decodedToken.id,
         images: {
-          create: imageUploads.map(upload => ({
-            filename: upload.filename,
-            data: upload.data,
-            type: upload?.type,
-            size : upload?.size || 0
-          }))
+          create: imageUploads
         }
       }
     });

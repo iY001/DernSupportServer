@@ -24,7 +24,6 @@ const postTicket = async (req, res) => {
     for (const photo of photos) {
       const data = Buffer.from(photo.buffer); // Correctly access file content from buffer
       imageUploads.push({
-        ...photo,
         filename: filename, // Adjust filename handling based on your requirements
         data: data.toString('base64'), // Convert buffer to base64 string
         type: photo.mimetype,
@@ -35,19 +34,14 @@ const postTicket = async (req, res) => {
     // Create ticket with associated images
     const ticket = await prisma.ticket.create({
       data: {
-        name: name,
-        email: email,
-        subject: subject,
-        type : type,
-        description: description,
+        name,
+        email,
+        subject,
+        type,
+        description,
         userId: decodedToken.id,
         images: {
-          create: imageUploads.map(upload => ({
-            filename: upload.filename,
-            data: upload.data ,
-            type: upload.type,
-            size : upload.size || 0
-          }))
+          create: imageUploads
         }
       }
     });

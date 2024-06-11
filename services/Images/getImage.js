@@ -21,6 +21,7 @@ const getImage = async (req, res) => {
     res.send(image.data);
 
   } catch (error) {
+    console.log(error);
     console.error('Error fetching image:', error);
     res.status(500).send('Error fetching image');
   }

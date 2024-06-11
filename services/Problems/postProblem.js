@@ -58,7 +58,7 @@ const postProblem = async (req, res) => {
         images: {
           create: imageUploads.map(upload => ({
             filename: upload.filename,
-            data: upload?.data ? Buffer.from(upload.data, 'base64') : undefined,
+            data: upload?.data ? upload?.data : undefined,
             type: upload?.type,
             size : upload?.size || 0
           }))

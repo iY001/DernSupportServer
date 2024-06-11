@@ -8,7 +8,7 @@ const getAllProblems = async (req, res) => {
         user: true,
         images: {
           select: {
-            filename: true // Correct usage to select only the fileName
+            filename: true // Correct usage to select only the filename
           }
         },
       }

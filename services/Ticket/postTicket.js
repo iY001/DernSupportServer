@@ -12,7 +12,7 @@ const postTicket = async (req, res) => {
     }
 
     const { name, email, subject, description , type} = req.body;
-    let { photos, fileName , size } = req.body;
+    let { photos, filename } = req.body;
 
     if (!Array.isArray(photos)) {
       photos = [];
@@ -25,10 +25,9 @@ const postTicket = async (req, res) => {
       const data = Buffer.from(photo.buffer); // Correctly access file content from buffer
       imageUploads.push({
         ...photo,
-        filename: fileName, // Adjust filename handling based on your requirements
+        filename: filename, // Adjust filename handling based on your requirements
         data: data.toString('base64'), // Convert buffer to base64 string
-        type: photo.mimetype,
-        size : photo.size ? photo.size : "Unknown"
+        type: photo.mimetype
       });
     }
 
@@ -45,17 +44,9 @@ const postTicket = async (req, res) => {
           create: imageUploads.map(upload => ({
             filename: upload.filename,
             data: upload.data,
-            type: upload.type,
-            size : upload.size ? upload.size : size
+            type: upload.type
           }))
         }
-      },
-      include: {
-        images: {
-          select: {
-            filename: true // Correct usage to select only the fileName
-          }
-        }, // Include images in the response
       }
     });
 

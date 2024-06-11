@@ -2,13 +2,13 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const getImage = async (req, res) => {
-  const fileName = req.params.filename;
+  const filename = req.params.filename;
 
 
   try {
     const image = await prisma.images.findFirst({
       where: {
-        filename: fileName,
+        filename: filename,
       },
     });
 

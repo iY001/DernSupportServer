@@ -27,7 +27,7 @@ const postProblem = async (req, res) => {
       return res.status(403).send("No Permission");
     }
 
-    let { photos, fileName , size } = req.body;
+    let { photos, filename } = req.body;
 
     // Ensure photos is an array
     if (!Array.isArray(photos)) {
@@ -41,10 +41,9 @@ const postProblem = async (req, res) => {
       const data = Buffer.from(photo.buffer);
       imageUploads.push({
         ...photo,
-        filename: fileName,
+        filename: filename,
         data: data.toString('base64'),
-        type: photo.mimetype,
-        size : photo.size ? photo.size : "Unknown"
+        type: photo.mimetype
       });
     }
 
@@ -60,7 +59,6 @@ const postProblem = async (req, res) => {
             filename: upload.filename,
             data: upload.data,
             type: upload.type,
-            size : upload.size ? upload.size : size
           }))
         }
       }

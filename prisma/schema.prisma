@@ -45,19 +45,17 @@ model Ticket {
 // }
 
 model Images {
-  id               String    @id @default(auto()) @map("_id") @db.ObjectId
-  filename         String?
-  data              Bytes? // Optional: URL or path to access the image file
-  type             String
-  size             Bytes?
-  problemId        String?   @db.ObjectId
-  problem          Problems? @relation(fields: [problemId], references: [id])
-  ticketId         String?   @db.ObjectId
-  ticket           Ticket?   @relation(fields: [ticketId], references: [id])
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  filename   String?
+  data       Bytes?    // Optional: URL or path to access the image file
+  type       String
+  problemId  String?   @db.ObjectId
+  problem    Problems? @relation(fields: [problemId], references: [id])
+  ticketId   String?   @db.ObjectId
+  ticket     Ticket?   @relation(fields: [ticketId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
-
 model Reply {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   body      String

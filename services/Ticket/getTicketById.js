@@ -11,7 +11,7 @@ const getTicketById = async (req, res) => {
         replies: true,
         images: {
           select: {
-            filename: true // Correct usage to select only the fileName
+            filename: true // Correct usage to select only the filename
           }
         },
         user: true

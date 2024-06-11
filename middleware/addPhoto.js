@@ -2,11 +2,11 @@ const addPhoto = async (req, res, next) => {
   try {
       const photos = req.files;
 
-      // if (!photos || photos.length === 0) {
-      //     return res.status(400).send({
-      //         error: "No Photos added"
-      //     });
-      // }
+      if (!photos || photos.length === 0) {
+          return res.status(400).send({
+              error: "No Photos added"
+          });
+      }
       
       req.body.photos = photos;
       

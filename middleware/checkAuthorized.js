@@ -4,7 +4,6 @@ const tokenVerification = require("../Validators/tokenVerification");
 const checkAuthorized = async (req, res, next) => {
     const authorizationHeader = req.headers.authorization;
     const prisma = new PrismaClient();
-    console.log(authorizationHeader);
     const decodedToken = tokenVerification(authorizationHeader);
     
     try {

@@ -2,7 +2,6 @@ const router = require('express').Router()
 const multer = require('multer')
 
 // Imports
-const checkAuthorized = require('../middleware/checkAuthorized')
 const addPhoto = require('../middleware/addPhoto')
 const postTicket = require('../services/Ticket/postTicket')
 const getAllTickets = require('../services/Ticket/getAllTickets')
@@ -18,7 +17,7 @@ router.get('/' , getAllTickets) // Done
 
 router.get('/:id' ,getTicketById) // Done
 
-router.post('/solve/:id', checkAuthorized , solveTicket)
+router.post('/solve/:id' , solveTicket)
 
 router.post('/', upload.array('files'), addPhoto, postTicket) // Done
 

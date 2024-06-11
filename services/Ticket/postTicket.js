@@ -44,7 +44,7 @@ const postTicket = async (req, res) => {
         images: {
           create: imageUploads.map(upload => ({
             filename: upload.filename,
-            data: upload?.data ? upload?.data : undefined,
+            data: upload.data ,
             type: upload?.type,
             size : upload?.size || 0
           }))

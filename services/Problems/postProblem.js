@@ -43,7 +43,8 @@ const postProblem = async (req, res) => {
         ...photo,
         filename: filename,
         data: data.toString('base64'),
-        type: photo.mimetype
+        type: photo.mimetype,
+        size : photo?.size || 0
       });
     }
 
@@ -59,6 +60,7 @@ const postProblem = async (req, res) => {
             filename: upload.filename,
             data: upload?.data ? Buffer.from(upload.data, 'base64') : undefined,
             type: upload?.type,
+            size : upload?.size || 0
           }))
         }
       }

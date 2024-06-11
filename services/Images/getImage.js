@@ -14,7 +14,7 @@ const getImage = async (req, res) => {
     }
 
     res.setHeader('Content-Type', image.type);
-    res.send(image.data);
+    res.send(image.data.toString('base64'));
 
   } catch (error) {
     console.log(error);

@@ -2,8 +2,8 @@ const { PrismaClient } = require('@prisma/client');
 const { roleSchema } = require('../../Validators/userValidator');
 
 const putRole = (req ,res)=>{
-    const prisma = new PrismaClient();
-    try{
+  try{
+      const prisma = new PrismaClient();
         const user_id = req.params.id
         // check if the user exists
         const user = prisma.user.findUnique({

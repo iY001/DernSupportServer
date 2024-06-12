@@ -14,13 +14,18 @@ const getImage = async (req, res) => {
       return res.status(404).send('Image not found');
     }
 
+    // Explicitly convert data to buffer and set appropriate headers
+    const imageBuffer = Buffer.from(image.data);
+    
     res.setHeader('Content-Type', image.type);
     res.setHeader('Content-Length', image.size);
-    res.end(image.data, 'binary');  // Send binary data directly
+    res.end(imageBuffer);  // Send binary data directly
 
   } catch (error) {
     console.error('Error fetching image:', error);
     res.status(500).send('Error fetching image');
+  } finally {
+    await prisma.$disconnect();  // Ensure Prisma disconnects to avoid connection leaks
   }
 };
 

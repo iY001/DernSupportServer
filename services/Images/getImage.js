@@ -11,11 +11,20 @@ const getImage = async (req, res) => {
     });
 
     if (!image) {
+      console.log(`Image not found for filename: ${filename}`);
       return res.status(404).send('Image not found');
     }
 
-    // Explicitly convert data to buffer and set appropriate headers
-    const imageBuffer = Buffer.from(image.data);
+    console.log('Image retrieved:', image);
+
+    // Check if image.data exists and is of expected type
+    if (!image.data || !(image.data instanceof Buffer || typeof image.data === 'string')) {
+      console.error('Image data is missing or not a buffer/string:', image.data);
+      return res.status(500).send('Image data is invalid');
+    }
+
+    // Explicitly convert data to buffer if it's a string
+    const imageBuffer = Buffer.isBuffer(image.data) ? image.data : Buffer.from(image.data, 'base64');
     
     res.setHeader('Content-Type', image.type);
     res.setHeader('Content-Length', image.size);

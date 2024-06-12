@@ -47,7 +47,7 @@ model Ticket {
 model Images {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   filename   String?
-  data       Bytes?
+  data       Bytes
   type       String
   size       Int?
   problemId  String?   @db.ObjectId

@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+
 const getImage = async (req, res) => {
   const filename = req.params.filename;
   try {
@@ -15,11 +16,9 @@ const getImage = async (req, res) => {
 
     res.setHeader('Content-Type', image.type);
     res.setHeader('Content-Length', image.size);
-    console.log(image);
-    res.end(Buffer.from(image.data), 'base64');
+    res.end(image.data, 'binary');  // Send binary data directly
 
   } catch (error) {
-    console.log(error);
     console.error('Error fetching image:', error);
     res.status(500).send('Error fetching image');
   }

@@ -15,7 +15,8 @@ const getImage = async (req, res) => {
 
     res.setHeader('Content-Type', image.type);
     res.setHeader('Content-Length', image.size);
-    res.send(image.data);
+    console.log(image);
+    res.end(Buffer.from(image.data), 'binary');
 
   } catch (error) {
     console.log(error);

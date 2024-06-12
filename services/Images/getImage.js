@@ -24,8 +24,6 @@ const getImage = async (req, res) => {
   } catch (error) {
     console.error('Error fetching image:', error);
     res.status(500).send('Error fetching image');
-  } finally {
-    await prisma.$disconnect();  // Ensure Prisma disconnects to avoid connection leaks
   }
 };
 

@@ -23,5 +23,5 @@ app.use('/tickets', checkAuthorized, require('./routes/Tickets'));
 app.use('/replies' , checkAuthorized, require('./routes/Replies'));
 app.use('/problems' , require('./routes/Problems'));
 app.use('/images' , require('./routes/Images'));
-
+app.use('/aichat', require('./routes/aiChat'));
 app.listen(port, () => console.log(`Server running on http://localhost:${port}`));

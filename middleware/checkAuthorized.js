@@ -3,22 +3,21 @@ const tokenVerification = require("../Validators/tokenVerification");
 
 const checkAuthorized = async (req, res, next) => {
     const authorizationHeader = req.headers.authorization;
+
+    if (!authorizationHeader) {
+        // Authorization header is missing
+        return res.status(401).json({ error: "Authorization header missing" });
+    }
+
     const prisma = new PrismaClient();
     const decodedToken = tokenVerification(authorizationHeader);
-    
+
+    if (!decodedToken) {
+        // Token is invalid or expired
+        return res.status(401).json({ error: "Invalid Token" });
+    }
+
     try {
-        // Check if the authorization header is present
-        if (!authorizationHeader) {
-            throw new Error("Not Authorized");
-        }
-
-        // Verify the token
-
-        // Check if token is invalid or expired
-        if (!decodedToken) {
-            throw new Error("Invalid Token");
-        }
-
         // Fetch user from database
         const user = await prisma.user.findFirst({
             where: {
@@ -26,17 +25,17 @@ const checkAuthorized = async (req, res, next) => {
             }
         });
 
-        // Check if user exists
         if (!user) {
-            throw new Error("User Not Found");
+            // User not found
+            return res.status(404).json({ error: "User Not Found" });
         }
 
         // Attach decoded token to request object for later use
         req.decodedToken = decodedToken;
         next();
     } catch (error) {
-        console.log(error);
-        return res.status(401).json({ error: "Authorization failed" });
+        console.error(error);
+        return res.status(500).json({ error: "Internal Server Error" });
     }
 };
 

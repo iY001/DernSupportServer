@@ -6,7 +6,7 @@ const tokenVerification = (token) => {
         return decodedToken;
     } catch(err) {
         // Handle other types of errors, such as TokenExpiredError
-        console.error("Error Verifying Token:", err.message);
+        // console.error("Error Verifying Token:", err.message);
         return null;
     }
 }

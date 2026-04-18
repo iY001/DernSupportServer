@@ -125,12 +125,17 @@ app.use(errorHandler);
 
 const PORT = config.server.port;
 
-const server = app.listen(PORT, () => {
-  logger.info(`🚀 Server running in ${config.server.nodeEnv} mode`, {
-    port: PORT,
-    url: `http://localhost:${PORT}`,
+let server;
+
+// Vercel runs the app as a serverless function, so don't open a persistent port there.
+if (!process.env.VERCEL) {
+  server = app.listen(PORT, () => {
+    logger.info(`Server running in ${config.server.nodeEnv} mode`, {
+      port: PORT,
+      url: `http://localhost:${PORT}`,
+    });
   });
-});
+}
 
 // ========================================
 // Graceful Shutdown
@@ -138,18 +143,22 @@ const server = app.listen(PORT, () => {
 
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
-  server.close(() => {
-    logger.info('HTTP server closed');
-    process.exit(0);
-  });
+  if (server) {
+    server.close(() => {
+      logger.info('HTTP server closed');
+      process.exit(0);
+    });
+  }
 });
 
 process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
-  server.close(() => {
-    logger.info('HTTP server closed');
-    process.exit(0);
-  });
+  if (server) {
+    server.close(() => {
+      logger.info('HTTP server closed');
+      process.exit(0);
+    });
+  }
 });
 
 // ========================================

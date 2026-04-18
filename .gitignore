@@ -1,5 +1,78 @@
-node_modules
-# Keep environment variables out of version control
-.env
+# ========================================
+# Backend .gitignore Configuration
+# ========================================
 
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*~
+.DS_Store
+.env.swp
+
+# OS Generated Files
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Build Output
+dist/
+build/
+out/
+.next/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Database
+*.sqlite
+*.sqlite3
+.prisma/
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+
+# Vercel
+.vercel/
 .vercel
+
+# Cache
+.cache/
+*.cache
+
+# Editor Directories & Files
+.sublime-workspace
+.sublime-project
+
+# Local development
+local.env
+dev.env
+
+# Prisma
+prisma/migrations/
+

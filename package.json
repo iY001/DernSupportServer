@@ -12,7 +12,6 @@
   "scripts": {
     "postinstall": "npx prisma generate",
     "start": "node index.js",
-    "build": "npx prisma generate && echo \"Build completed!\"",
     "dev": "nodemon index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

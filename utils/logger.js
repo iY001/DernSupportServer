@@ -6,11 +6,17 @@
 const fs = require('fs');
 const path = require('path');
 
-const logsDir = path.join(__dirname, '../logs');
+const isVercel = Boolean(process.env.VERCEL);
+const logsDir = isVercel ? '/tmp/dernsupport-logs' : path.join(__dirname, '../logs');
+let fileLoggingEnabled = !isVercel;
 
 // Create logs directory if it doesn't exist
-if (!fs.existsSync(logsDir)) {
-  fs.mkdirSync(logsDir, { recursive: true });
+try {
+  if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir, { recursive: true });
+  }
+} catch (error) {
+  fileLoggingEnabled = false;
 }
 
 const getTimestamp = () => {
@@ -18,10 +24,14 @@ const getTimestamp = () => {
 };
 
 const logToFile = (level, data) => {
-  if (process.env.NODE_ENV === 'production') {
-    const logFile = path.join(logsDir, `${level}-${new Date().toISOString().split('T')[0]}.log`);
-    const logEntry = `[${getTimestamp()}] ${JSON.stringify(data)}\n`;
-    fs.appendFileSync(logFile, logEntry);
+  if (process.env.NODE_ENV === 'production' && fileLoggingEnabled) {
+    try {
+      const logFile = path.join(logsDir, `${level}-${new Date().toISOString().split('T')[0]}.log`);
+      const logEntry = `[${getTimestamp()}] ${JSON.stringify(data)}\n`;
+      fs.appendFileSync(logFile, logEntry);
+    } catch (error) {
+      fileLoggingEnabled = false;
+    }
   }
 };
 

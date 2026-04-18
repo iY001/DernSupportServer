@@ -7,7 +7,6 @@
 const requiredEnvVars = [
   'DATABASE_URL',
   'JWT_SECRET',
-  'NODE_ENV',
 ];
 
 const optionalEnvVars = {
@@ -23,9 +22,13 @@ const optionalEnvVars = {
 // Validate required environment variables
 requiredEnvVars.forEach(envVar => {
   if (!process.env[envVar]) {
-    throw new Error(
-      `Missing required environment variable: ${envVar}. Please check your .env file.`
-    );
+    const message = `Missing required environment variable: ${envVar}. Please check your environment configuration.`;
+    if (process.env.VERCEL) {
+      console.warn(message);
+      return;
+    }
+
+    throw new Error(message);
   }
 });
 
